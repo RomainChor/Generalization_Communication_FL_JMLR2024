@@ -1,11 +1,13 @@
 # On the Effect of Clients-Server Communication on the Generalization Error of Federated Learning
-Contains source code for reproducing experimental results of the JMLR2024 paper (under review) "On the Effect of Clients-Server Communication on the Generalization Error of Federated Learning" by Milad Sefidgaran*, Romain Chor* and Abdellatif Zaidi.  
+Contains source code for reproducing experimental results of the paper "On the Effect of Clients-Server Communication on the Generalization Error of Federated Learning" by Romain Chor*, Milad Sefidgaran*, and Abdellatif Zaidi. It is under review for publication in JMLR. 
 *Equal contribution.
+
+Our experiments use that public datasets MNIST and CIFAR-10. 
 
 ## Code for experiments on the generalization of FSVM 
 - run_experiments.py: File to run to reproduce presented experiments in the paper.  
   Arguments:  
-  - `--data_path`: Path to directory containing MNIST data, type: str  
+  - `--data_path`: Path to directory containing MNIST data (will download and install the data there otherwise), type: str  
   - `--save_path`: Path to directory where to save experiments results and plots, type: str  
   - `--mode`: Whether to run simulations ('train') or to plot figures ('plot'). Set to 'train', run the file then set to 'plot' and run again to get plots, type: str  
   - `--comparison`: To run simulations with 'K' or 'n' fixed, type: str  
@@ -22,25 +24,30 @@ Contains source code for reproducing experimental results of the JMLR2024 paper 
 ## Code for additional experiments on the generalization of FL 
 - run_training.sh: Shell file to run training
   Arguments:
-  - `--nproc_per_node`: Number of GPUs used (Multi-GPUs training)  
-  - `--seed`: Seed for reproducibility  
-  - `--data-pth`: Path to directory containing the CIFAR-10 data (will download and install the data there otherwise)  
-  - `--log-pth`: Path to directory where to save the models
+  - `--nproc_per_node`: Number of GPUs used (Multi-GPUs training), type: int
+  - `--seed`: Seed for reproducibility, type: int
+  - `--data-pth`: Path to directory containing the CIFAR-10 data (will download and install the data there otherwise), type: str
+  - `--log-pth`: Path to directory where to save the models, type: str
 
 - inference.py: Script file to run inference  
-  - `--save-pth`: Path to directory containing the saved models
+  - `--save-pth`: Path to directory containing the saved models, type: str
 
 - models/: Contains the models classes
 
 
 ## Code for the estimation of the generalization bound of Theorem 3
+- federated_main.py: File to run to reproduce our experiments.
+  Arguments:
+  - `--dataset`: Dataset to use. Either 'mnist' or 'cifar'.
+  - `--model`: Model to use. Either 'mlp' or 'resnet'.
+  - `--gpu`: Whether to enable GPU training, type: str
+  - `--num_users`: Number of clients $K$, type: int
 
 
 ## Reproducing our results
 
 ### FSVM
-- Download MNIST data from: http://yann.lecun.com/exdb/mnist/.
-- Extract the files and place in the current directory (or make sure to modify PATH environment variable)
+- Make sure the MNIST data is in the current directory (or make sure to modify PATH environment variable)
 - To reproduce Fig. 2 and Fig. 4:
   - Launch run_experiments.py with `--data_path` and `--save_path` set properly. Some .pickle files should be saved in the 
    directory indicated in `--save_path`.
@@ -57,12 +64,18 @@ Contains source code for reproducing experimental results of the JMLR2024 paper 
    - Launch run_experiments.py with `--mode 'estimation'` and `--data_path` and `--save_path` set properly. Some .pickle files should be saved in the 
      directory indicated in `--save_path`.
 
-### Additional experiments
+### Additional experiments on NNs
 To reproduce Fig. 3:
   - Open run_training.sh and set the arguments described above accordingly. 
   - Run run_training.sh in a terminal.
   - Launch inference.py in a terminal by setting `--save_pth` correctly.
   - Read the .pickle file using Pandas library and plot the values.
+
+### Experiments on the estimation of the generalization bound of Theorem 3
+- To reproduce Setup 1 results, run `federated_main.py` with the following arguments: `--dataset 'mnist' --model 'mlp' --gpu True --num_users 10 --num_samples 500 --local_bs 128 --ep_values 1 2 5 8 10 12 15 18 20 --total_ep 100 --rounds_values 1 --num_init 10 --momentum 0.5 --lr 0.01 --eval_freq 1 --mc 10 --optimizer 'adam' --info_eval_freq -1 --verbose 1`
+
+- To reproduce Setup 2 results, run `federated_main.py` with the following arguments: `--dataset 'cifar' --model 'resnet' --gpu True --num_users 10 --num_samples 500 --local_bs 128 --ep_values 1 2 8 5 10 12 15 18 20 --total_ep 20 --rounds_values 1 --num_init 10 --momentum 0.5 --lr 0.0001 --eval_freq 1 --mc 10 --optimizer 'adam' --info_eval_freq -1 --verbose 1`
+
 
 ## Requirements
 idx2numpy==1.2.3  
