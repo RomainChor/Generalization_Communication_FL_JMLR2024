@@ -1,5 +1,5 @@
-# On the Effect of Clients-Server Communication on the Generalization Error of Federated Learning
-Contains source code for reproducing experimental results of the paper "On the Effect of Clients-Server Communication on the Generalization Error of Federated Learning" by Romain Chor*, Milad Sefidgaran*, and Abdellatif Zaidi. It is under review for publication in JMLR. 
+# Generalization Error of Federated Learning & Clients-Server Communication: Bounds, Algorithms for their Computation and Implications
+Contains source code for reproducing experimental results of the paper "Generalization Error of Federated Learning & Clients-Server Communication: Bounds, Algorithms for their Computation and Implications" by Romain Chor*, Milad Sefidgaran* and Abdellatif Zaidi. It is under review for publication in JMLR. 
 *Equal contribution.
 
 Our experiments use the public datasets MNIST and CIFAR-10. 
