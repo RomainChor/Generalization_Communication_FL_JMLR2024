@@ -5,6 +5,8 @@ Contains source code for reproducing experimental results of the paper "On the E
 Our experiments use the public datasets MNIST and CIFAR-10. 
 
 ## Code for experiments on the generalization of FSVM 
+'FSVM' folder:
+
 - run_experiments.py: File to run to reproduce presented experiments in the paper.  
   Arguments:  
   - `--data_path`: Path to directory containing MNIST data (type: str)  
@@ -22,6 +24,8 @@ Our experiments use the public datasets MNIST and CIFAR-10.
 
  
 ## Code for additional experiments on the generalization of FL 
+'Additional' folder:
+
 - run_training.sh: Shell file to run training.  
   Arguments:
   - `--nproc_per_node`: Number of GPUs used (Multi-GPUs training) (type: int)
@@ -36,6 +40,8 @@ Our experiments use the public datasets MNIST and CIFAR-10.
 
 
 ## Code for the estimation of the generalization bound of Theorem 3
+'Estimation' folder:
+
 - federated_main.py: File to run to reproduce our experiments.  
   Arguments:
   - `--save_path`: Path to directory to save models (type: str)
